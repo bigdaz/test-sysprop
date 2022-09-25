@@ -39,5 +39,8 @@ def workingDir = project.file('build/working-dir')
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
-    systemProperties['test_sysprop'] = workingDir
+
+    doFirst {
+        systemProperties['test_sysprop'] = workingDir
+    }
 }
