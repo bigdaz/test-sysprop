@@ -39,8 +39,19 @@ def workingDir = project.file('build/working-dir')
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+    jvmArgumentProviders << new TestArgsProvider(workingDir)
+}
 
-    doFirst {
-        jvmArgs "-Dtest_sysprop=${workingDir}"
+class TestArgsProvider implements CommandLineArgumentProvider {
+    @Internal
+    File workingDir
+
+    TestArgsProvider(File workingDir) {
+        this.workingDir = workingDir
+    }
+
+    @Override
+    Iterable<String> asArguments() {
+        ["-Dtest_sysprop=${workingDir.absolutePath}"]
     }
 }
