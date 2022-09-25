@@ -41,6 +41,6 @@ tasks.named('test') {
     useJUnitPlatform()
 
     doFirst {
-        systemProperties['test_sysprop'] = workingDir
+        jvmArgs "-Dtest_sysprop=${workingDir}"
     }
 }
